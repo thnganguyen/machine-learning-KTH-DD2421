@@ -2,6 +2,7 @@
 
 \usepackage{graphicx}
 \usepackage{tcolorbox}
+\usepackage{amsfonts}
 
 
 \title{\vspace{-5.0cm}DD2421 Machine Learning - Lab 1: Decision Trees \\ Python version}
@@ -12,7 +13,7 @@
 \maketitle
 
 
-\section{Assignment 0: MONK datasets}
+\section{MONK datasets}
 
 This lab uses the artificial MONK dataset from the UC Irvine repository.
 The MONK's problems are a collection of three binary classification
@@ -94,27 +95,7 @@ This makes the variable \texttt{m} a shorthand for the module so that
 you can access the datasets by writing \verb!m.monk1!, etc.
 
 
-\section{Assignment 1: Entropy}
-
-In order to decide on which attribute to split, decision tree learning
-algorithms such as ID3 and C4.5 use a statistical property called
-\emph{information gain}.  It measures how well a particular attribute
-distinguishes among different target classifications.  Information
-gain is measured in terms of the expected reduction in the
-\emph{entropy} or impurity of the data.  The entropy of an arbitrary
-collection of examples is measured by
-\begin{equation}
-\textrm{Entropy}(S) = - \sum_i p_i \log_2 p_i
-\label{eq:entropy}
-\end{equation}
-in which $p_i$ denotes the proportion of examples of class $i$ in $S$. 
-The monk dataset is a binary classification problem (class 0 or 1) and
-therefore equation (\ref{eq:entropy}) simplifies to
-\begin{equation}
-\textrm{Entropy}(S) = - p_0 \log_2 p_0 - p_1 \log_2 p_1
-\end{equation}
-where $p_0$ and $p_1=1-p_0$ are the proportions of examples belonging to class 
-$0$ and $1$.\\[2ex]
+\section{Entropy}
 
 \begin{tcolorbox}
 \textbf{Assignment 1:} The file \verb!dtree.py! defines a function
@@ -123,6 +104,7 @@ this file along with the monks datasets and use it to calculate the
 entropy of the \emph{training} datasets.
 \end{tcolorbox}
 
+The entropies of all datasets are approximately 1 which is maximum value. That implies there is no information about the classification of the data.
 
 \begin{center}
   \begin{tabular*}{0.9\textwidth}{|c|c@{\extracolsep{\fill}}c|}
@@ -145,13 +127,21 @@ Explain entropy for a uniform distribution
 and a non-uniform distribution, present some example distributions with high and low entropy.
 \end{tcolorbox}
 
+Consider discrete case of uniform distribution, let $X = \{x_1, x_2, \ldots , x_n\}$ be a random variable such that $p(x_i) = \mathbb{P}(X = x_i) = 1/n$, ($i = {1,2,\ldots , n}$). The entropy of $X$ is given by
+$$
+H(X) = -\sum_{i=1}^{n}p(x_i)\log_2(p(x_i)) = -\sum_{i=1}^n\frac{1}{n}\log_2\left(\frac{1}{n}\right) = \log_2(n)
+$$
+
+In another case of non-uniform distribution, let $X = \{y_1, y_2, \ldots , y_n\}$ be random variable of a multinomial distribution with the number of trials $n$ and event probabilities $p_1, p_2, \ldots , p_n$ ($\sum_{i=1}^np_i = 1$). We see that $p(y_i) = p_i$. The entropy of $Y$ is given by
+$$
+H(Y) = -\sum_{i=1}^{n}p(y_i)\log_2(p(y_i)) = -\sum_{i=1}^np_i\log_2\left(p_i\right)
+$$
+We have $H(Y) \leq H(X)$, the equals occurs when $p_i = 1/n$ for all $i = {1, 2, \ldots , n}$.
+For example, take $n=2$ and $p_1 = 0.8, \, p_2 = 0.2$ the entropies $H(X) = 1$ and $H(Y) = 0.72$. If $p_1 = 0.99, \, p_2 = 0.01$ the entropy $H(Y) = 0.08$.
 
 \section{Information Gain}
 
-The information gain measures the expected reduction in impurity
-caused by partitioning the examples according to an attribute.
-It thereby indicates the effectiveness of an attribute in classifying the 
-training data. The information gain of an attribute $A$, relative to 
+The information gain of an attribute $A$, relative to 
 a collection of examples $S$ is defined as
 \begin{equation}
 \textrm{Gain}(S,A) = \textrm{Entropy}(S) -
@@ -185,6 +175,7 @@ should be used for splitting the examples at the root node?
   \end{tabular*}
 \end{center}
 
+Based on the results, the attribute which maximizes the information gain should be used for splitting the examples at the root node. In particular, the attribute A5 in dataset MONK1, A5 in MONK2 and A2 in MONK3 should be roots.\\
 
 \begin{tcolorbox}
 \textbf{Assignment 4:} 
@@ -195,30 +186,104 @@ as a heuristic for picking an attribute for splitting? Think about reduction
 in entropy after the split and what the entropy implies.
 \end{tcolorbox}
 
+The below tables show the entropy of each subset $S_k$ in Eq.3. We can see that at the attribute maximized the information gain (bold) there is at least one smaller entropy.\\
+
+At each level of the tree, maximizing the information gain of the attributes minimized the expected entropy which is obtained after slipping examples $S$ on the attribute $A$. The smaller the entropy at a node, the more information is known about the classification of data at this level of the tree. Therefore, by using the smallest entropy to slip data we get the best classification at this level of the tree.\\
+
+However, this way does not guarantee an optimal solution for whole tree. It uses the locally best attribute to split the dataset. Sometime by selecting not the best but the good attribute implies better final tree.
+
+%\begin{center}
+%  Expected entropy of examples $S$ after slipping on attribute $A$ \\[0.5ex]
+%  \begin{tabular*}{\textwidth}{|c@{\extracolsep{\fill}}|c|c|c|c|c|c|}
+%    \hline
+%    Dataset & $a_1$ & $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ \\
+%    \hline
+%    \verb!MONK-1 ! & 0.92473 & 0.99416 & 0.99529 & 0.97369 & 0.71297 & 0.99924 \\
+%    \hline
+%    \verb!MONK-2 ! & 0.95336 & 0.95466 & 0.95606 & 0.94145 & 0.93984 & 0.95087 \\
+%    \hline
+%    \verb!MONK-3 ! & 0.99269 & 0.70607 & 0.99898 & 0.99691 & 0.74389 & 0.99273 \\
+%    \hline
+%  \end{tabular*}
+%\end{center}
+
+\begin{center}
+  Information Gain and Entropy of subsets of \verb!MONK-1 !\\[0.5ex]
+  \begin{tabular*}{\textwidth}{|c@{\extracolsep{\fill}}|c|c|c|c|c|}
+    \hline      
+    Attribute & Expected & $S_1$ & $S_2$ & $S_3$ & $S_4$ \\
+    \hline
+    $a_1$ & 0.92473 & 0.89445 & 0.99836 & 0.87796 &  \\ 
+    \hline
+    $a_2$ & 0.99416 & 0.98523 & 0.99836 & 0.99706 &   \\ 
+    \hline
+    $a_3$ & 0.99529 & 0.99573 & 0.99481 &  &  \\
+    \hline
+    $a_4$ & 0.97369& 0.95871 & 0.96124 & 0.99961 & \\
+    \hline
+    $a_5$ & \textbf{0.71297} & 0 & 0.93832 & 0.94808 & 0.90818 \\
+    \hline
+    $a_6$ & 0.99924 & 0.99908 & 0.99938 & & \\
+    \hline
+  \end{tabular*}
+\end{center}
+
+
+\begin{center}
+  Information Gain and Entropy of subsets of \verb!MONK-2 !\\[0.5ex]
+  \begin{tabular*}{\textwidth}{|c@{\extracolsep{\fill}}|c|c|c|c|c|}
+    \hline  
+    Attribute & Expected & $S_1$ & $S_2$ & $S_3$ & $S_4$ \\
+    \hline
+    $a_1$ & 0.95336 & 0.9183 & 0.96215 & 0.9806 &  \\ 
+    \hline
+    $a_2$ & 0.95466 & 0.92994 & 0.9779 & 0.95261 &   \\ 
+    \hline
+    $a_3$ & 0.95606 & 0.96952 & 0.94307 &  &  \\
+    \hline
+    $a_4$ & 0.94145 & 0.85241 & 0.97512 & 0.99048 & \\
+    \hline
+    $a_5$ & \textbf{0.93984} & 0.91035 & 1 &  0.96334 & 0.87796\\
+    \hline
+    $a_6$ & 0.95087 & 0.9183 & 0.98306 & & \\
+    \hline
+  \end{tabular*}
+\end{center}
+
+
+\begin{center}
+  Information Gain and Entropy of subsets of \verb!MONK-3 !\\[0.5ex]
+  \begin{tabular*}{\textwidth}{|c@{\extracolsep{\fill}}|c|c|c|c|c|}
+    \hline  
+    Attribute & Expected & $S_1$ & $S_2$ & $S_3$ & $S_4$ \\
+    \hline
+    $a_1$ & 0.99269 & 0.99498 & 0.98371 & 1 &  \\ 
+    \hline
+    $a_2$ & \textbf{0.70607}  & 0.9183 & 0.82961 & 0.37765 &   \\ 
+    \hline
+    $a_3$ & 0.99898 & 0.99983 & 0.998 &  &  \\
+    \hline
+    $a_4$ & 0.99691 & 0.9982 & 0.99199 & 1 & \\
+    \hline
+    $a_5$ & 0.74389 & 0.89604 & 0.90717 & 0.98523 & 0.20559\\
+    \hline
+    $a_6$ & 0.99273 & 0.98982 & 0.99545 & & \\
+    \hline
+  \end{tabular*}
+\end{center}
 
 \section{Building Decision Trees}
 
 Split the \texttt{monk1} data into subsets according to the selected
 attribute using the function \texttt{select} (again, defined in
 \verb!dtree.py!)  and compute the information gains for the nodes on
-the next level of the tree.  Which attributes should be tested for
-these nodes?
+the next level of the tree.  The remaining attributes (A1, A2, A3, A4, A6) should be tested for these nodes.\\
 
-For the \texttt{monk1} data draw the decision tree up to the first two
-levels and assign the majority class of the subsets that resulted from
-the two splits to the leaf nodes.  You can use the predefined function
-\texttt{mostCommon} (in \verb!dtree.py!) to obtain the majority class
-for a dataset.
+The nodes at this level of the tree is found by maximizing the information gain of each subset on each value of root. In particular, in MONK1 the nodes corresponding to the values of A5 ($A5 = [1, 2, 3, 4]$) are null (leaf), A4, A5, A1; in MONK2 they are A3, A3, A3, A2; and in MONK3 with root A2 = $[1, 2, 3]$ they are A5, A5, A4. The leafs (or outcomes = $\{+, -\}$ are determined by using \texttt{mostCommon} function.\\
 
-Now compare your results with that of a predefined routine for ID3.
-Use the function \verb!buildTree(data, m.attributes)! to build the
-decision tree.  If you pass a third, optional, parameter to
-\texttt{buildTree}, you can limit the depth of the generated tree.
+All results are the same as the one gotten from ID3 used in \verb!buildTree(data, m.attributes)!.\\
 
-You can use \texttt{print} to print the resulting tree in text form,
-or use the function \texttt{drawTree} from the file \verb!drawtree_qt4.py! 
-or \verb!drawtree_qt5.py!, depending on your PyQt version, to draw a graphical 
-representation.
+Add figure ...........
 
 \begin{tcolorbox}
 \textbf{Assignment 5:} 
@@ -255,49 +320,19 @@ results you get for the training and test datasets.
   \end{tabular*}
 \end{center}
 
+In each data, since the classifier based on full tree which fitted all training sets the performance on training dataset is 1 and the error is thus 0. These errors on the test sets are quite large in MONK2 and small in MONK3 but all are larger than 0. This can be an overfitting of the full tree. 
+
 \section{Pruning}
-The idea of \emph{reduced error pruning} is to consider each node in
-the tree as a candidate for removal.  A node is removed if the
-resulting pruned tree performs at least as well as the original tree
-over a separate \emph{validation dataset}, i.e. a dataset not used
-during training.  When a node is removed, the subtree rooted at that
-node is replaced by a leaf node, to which the majority classification
-of examples in that node is assigned.
-
-For the purpose of pruning, we have to split our original training
-data into one training set for building the tree and one validation
-set for pruning.  Notice, that using the test set for validation would
-be cheating because we would then no longer be able to use the test
-set for independently estimating the true error of our pruned decision
-tree.  Instead, we will randomly partition the original training set into
-training and validation set.  This can be done by defining a function
-which randomly reorders the data samples and returns the first and second
-parts separately:
-\begin{verbatim}
-import random
-
-def partition(data, fraction):
-    ldata = list(data)
-    random.shuffle(ldata)
-    breakPoint = int(len(ldata) * fraction)
-    return ldata[:breakPoint], ldata[breakPoint:]
-
-monk1train, monk1val = partition(m.monk1, 0.6)
-\end{verbatim}
-
-In the file \verb!dtree.py! there is a utility function \texttt{allPruned}
-which returns a sequence of all possible ways a given tree can be pruned.
-
-Write code which performs the complete pruning by repeatedly calling
-\texttt{allPruned} and picking the tree which gives the best
-classification performance on the validation dataset.  You should stop
-pruning when all the pruned trees perform worse than the current
-candidate.
 
 \begin{tcolorbox}
 \textbf{Assignment 6:}
 Explain pruning from a bias variance trade-off perspective.
 \end{tcolorbox}
+%A tree that is too large risks overfitting the training data and poorly generalizing to new samples. A small tree might not capture important structural information about the sample space. 
+
+The full tree decision classifier has low bias but high variance error. The variance is increasing as the number of the nodes in the tree. Pruning is to reduce the variance of the tree. \\
+
+However, when the variance is decreasing the bias is increasing. Pruning should reduce the size of a learning tree without reducing predictive accuracy. One technique is reduced error pruning in which the error of the sub-trees is minimized on a validation set not used in training. The error is used in the pruning is the same as MSE which is decomposed $MSE = Bias^2 + Variance$.\\
 
 \begin{tcolorbox}
 \textbf{Assignment 7:} Evaluate the effect pruning has on the test
@@ -313,5 +348,6 @@ conclusions. Reasonable statistics includes mean and a measure of the spread.
 Do remember to print axes labels, legends and data points as you will not pass without them.
 \end{tcolorbox}
 
+Add figure ........
 
 \end{document}
