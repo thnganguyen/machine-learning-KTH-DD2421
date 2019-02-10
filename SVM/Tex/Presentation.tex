@@ -1,0 +1,224 @@
+% $Header$
+
+\documentclass[unknownkeysallowed,10pt]{beamer}
+
+% This file is a solution template for:
+
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+
+\mode<presentation>
+{
+  \usetheme{Boadilla}
+  % or ...
+  %\usecolortheme{orchid}
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\usefonttheme[onlymath]{serif}
+%\usepackage{eulervm}
+\setbeamertemplate{itemize item}{\scriptsize\raise1.25pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
+\setbeamertemplate{sections/subsections in toc}[square]
+
+\usepackage[english]{babel}
+\usepackage{epstopdf}
+% or whatever
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{color,xcolor}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsthm,amssymb,latexsym,mathtools}
+\usepackage{enumitem,comment}
+\usepackage{graphics,graphicx}
+\graphicspath{{pics/}}
+%\setbeamertemplate{theorems}[numbered]
+\setbeamercovered{invisible}
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+\definecolor{darkblue}{rgb}{0.13,0.13,0.39}%{0.03,0.03,0.265}
+
+\newtheorem{thm}{Theorem}[section] 
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition} \newtheorem{cor}[thm]{Corollary}
+\newtheorem{cort}[thm]{Corollary} \newtheorem{thm2}[thm]{Theorem}
+\theoremstyle{definition} \newtheorem{rem}[thm]{Remark} \newtheorem*{rem*}{Remark}
+\newtheorem{defn}[thm]{Definition} \newtheorem{ex}[thm]{Example}
+\newtheorem{conjec}[thm]{Conjecture} \newcounter{assum}
+\renewcommand{\theassum}{H\arabic{assum}}
+% \setcounter{assum}{1}
+\newtheorem*{notation}{Notation}
+
+%\renewcommand{\theequation}{\arabic{equation}}
+%\renewcommand{\labelitemi}{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\I}{{\rm i}} \newcommand{\pp}{\mathbb{P}} \newcommand{\hpp}{\widehat{\pp}}
+\newcommand{\qq}{\mathbb{Q}} \newcommand{\ee}{\mathbb{E}} \newcommand{\rr}{\mathbb{R}}
+\newcommand{\nn}{\mathbb{N}} \newcommand{\zz}{\mathbb{Z}} \newcommand{\aip}{\mathcal{A}_2}
+\newcommand{\aipo}{\mathcal{A}_1} \newcommand{\Bt}{{\mathcal{A}}_{2\to 1}}
+% \newcommand{\cz}{{\CMcal Z}}
+\newcommand{\ch}{\mathcal{H}} \newcommand{\cb}{\mathcal{B}} \newcommand{\ct}{\mathcal{T}}
+\newcommand{\cx}{\mathcal{X}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cm}{\mathcal{M}}
+\newcommand{\cc}{{\mathbb{C}}}
+\newcommand{\p}{\partial}
+\newcommand{\uno}[1]{\mathbf{1}_{#1}}
+\newcommand{\ep}{\varepsilon}
+\newcommand{\vs}{\vspace{6pt}}
+\newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
+\newcommand{\K}{{\sf K}_{\Ai}} \newcommand{\m}{\overline{m}} \newcommand{\sT}{\mathsf{T}}
+\newcommand{\qand}{\quad\text{and}\quad}
+\newcommand{\qqand}{\qquad\text{and}\qquad}
+\newcommand{\ts}{\hspace{0.1em}}
+\newcommand{\tts}{\hspace{0.05em}}
+\newcommand{\tsm}{\hspace{-0.1em}}
+\newcommand{\ttsm}{\hspace{-0.05em}}
+\newcommand{\sI}{{\sf I}}
+\newcommand{\sP}{{\sf P}}
+\newcommand{\sB}{{\sf B}}
+% \newcommand{\sI}{{\sf I}}
+% \newcommand{\sI}{{\sf I}}
+
+
+\DeclareMathOperator{\Ai}{Ai}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\sech}{sech}
+%\DeclareMathOperator{\pv}{p.\!v.\!}
+
+\newcommand{\hs}{\hspace{0.05em}}
+\newcommand{\hshat}[1]{\hs\hs\hat{#1}}
+
+%\newcommand{\note}[1]{\textup{\textsf{\color{Blue}(#1)}}}
+%\newcommand{\blue}[1]{{\color{blue}#1}}  
+%\newcommand{\daniel}[1]{\textup{\textsf{\color{ForestGreen}(#1)}}}
+%\newcommand{\bao}[1]{\textup{\textsf{\color{BrickRed}(#1)}}}
+
+\newcommand{\inv}[1]{\frac{1}{#1}}
+\newcommand{\abs}[1]{\ensuremath{\left|#1\right|}}
+
+\newcommand{\KGN}{{\sf K}_{N}}
+\newcommand{\wtKGN}{{\wt {\sf K}}_{N}^{\rm bb}}
+\newcommand{\sKGN}{{\sf K}_{N}^{\star}}
+\newcommand{\oKGN}{{\sf K}^{\rm be}_{N}}
+\newcommand{\wtoKGN}{{\wt {\sf K}}^{\rm odd}_{N}}
+\newcommand{\eKGN}{{\sf K}^{\rm rbb}_{N}}
+\newcommand{\oeKGN}{{\sf K}^{{\rm be}/{\rm rbb}}_{N}}
+\newcommand{\KLN}{{\sf K}_{{\rm Lague},N}}
+\newcommand{\wtKLN}{{\wt {\sf K}}_{{\rm Lague},N}}
+
+\DeclareMathOperator*{\argmax}{argmax}
+% \DeclareMathOperator{\pf}{Pf}
+% \DeclareMathOperator*{\Res}{Res}
+\DeclareMathOperator{\sgn}{sgn}
+
+\newcommand{\twopii}[1]{(2\pi\I)^{#1}}
+\newcommand{\itwopii}[1]{\frac{1}{(2\pi\I)^{#1}}}
+
+
+\title[SVM] % (optional, use only with long paper titles)
+{Support Vector Machine}
+
+%\subtitle
+%{Include Only If Paper Has a Subtitle}
+
+\author[Marina Herrera, Nga Nguyen]
+{
+{\large Marina Herrera, Thi Thuy Nga Nguyen}
+}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[] % (optional, but mostly needed)
+{
+DD2421 - Machine Learning\\
+KTH Royal Institute of Technology, Sweden
+}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date[February 2019] % (optional, should be abbreviation of conference name)
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+%\pgfdeclareimage[height=0.5cm]{university-logo}{logo}
+%\logo{\pgfuseimage{university-logo}}
+%\titlegraphic{\includegraphics[width=.15\linewidth]{logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+% Structuring a talk is a difficult task and the following structure
+% may not be suitable. Here are some rules that apply for this
+% solution: 
+
+% - Exactly two or three sections (other than the summary).
+% - At *most* three subsections per section.
+% - Talk about 30s to 2min per frame. So there should be between about
+%   15 and 30 frames, all told.
+
+% - A conference audience is likely to know very little of what you
+%   are going to talk about. So *simplify*!
+% - In a 20min talk, getting the main ideas across is hard
+%   enough. Leave out details, even if it means being less precise than
+%   you think necessary.
+% - If you omit details that are vital to the proof/implementation,
+%   just say so once. Everybody will be happy with that.
+
+\section{Introduction}
+
+\begin{frame}{SVM}
+The content
+\end{frame}
+
+\end{document}
