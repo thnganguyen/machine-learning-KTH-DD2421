@@ -34,8 +34,8 @@
 
 \usefonttheme[onlymath]{serif}
 %\usepackage{eulervm}
-\setbeamertemplate{itemize item}{\scriptsize\raise1.25pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
-\setbeamertemplate{sections/subsections in toc}[square]
+%\setbeamertemplate{itemize item}{\scriptsize\raise1.25pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
+%\setbeamertemplate{sections/subsections in toc}[square]
 
 \usepackage[english]{babel}
 \usepackage{epstopdf}
@@ -102,7 +102,6 @@
 % \newcommand{\sI}{{\sf I}}
 % \newcommand{\sI}{{\sf I}}
 
-
 \DeclareMathOperator{\Ai}{Ai}
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\sech}{sech}
@@ -139,7 +138,7 @@
 
 
 \title[SVM] % (optional, use only with long paper titles)
-{Support Vector Machine}
+{Support Vector Machines}
 
 %\subtitle
 %{Include Only If Paper Has a Subtitle}
@@ -152,16 +151,17 @@
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
 
-\institute[] % (optional, but mostly needed)
-{
-DD2421 - Machine Learning\\
-KTH Royal Institute of Technology, Sweden
-}
 % - Use the \inst command only if there are several affiliations.
 % - Keep it simple, no one is interested in your street address.
 
 \date[February 2019] % (optional, should be abbreviation of conference name)
-
+{
+\small Assignment 2 - DD2421 Machine Learning
+\vskip1.5pt
+\small KTH Royal Institute of Technology, Sweden
+\vskip6pt
+\small February 20th, 2019
+}
 
 
 % If you have a file called "university-logo-filename.xxx", where xxx
@@ -193,7 +193,7 @@ KTH Royal Institute of Technology, Sweden
 
 \begin{document}
 
-\begin{frame}
+\begin{frame}[plain,noframenumbering]
   \titlepage
 \end{frame}
 
@@ -215,10 +215,273 @@ KTH Royal Institute of Technology, Sweden
 % - If you omit details that are vital to the proof/implementation,
 %   just say so once. Everybody will be happy with that.
 
-\section{Introduction}
+\section{Linear kernel}
 
-\begin{frame}{SVM}
-The content
+\begin{frame}{Linear kernel}
+\vskip6pt
+Maximaize the margin (or distance to any datapoint).\\
+\centering
+\includegraphics[width=.95\linewidth]{svmplot0.pdf}
 \end{frame}
+
+\begin{frame}[noframenumbering]{Linear kernel}
+\vskip6pt
+Maximaize the margin (or distance to any datapoint).\\
+\centering
+\includegraphics[width=.95\linewidth]{svmclass0.pdf}
+\end{frame}
+
+\begin{frame}{Linear kernel}
+\vskip6pt
+Take longer time for large datasets.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmplot0_1.pdf}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Linear kernel}
+\vskip6pt
+Take longer time for large datasets.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmclass0_1.pdf}
+\end{frame}
+
+\begin{frame}{Linear kernel}
+\vskip6pt
+Very good for small sizes samples.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmplot0_2.pdf}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Linear kernel}
+\vskip6pt
+Very good small sizes samples.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmclass0_2.pdf}
+\end{frame}
+
+\begin{frame}{Linear kernel}
+\vskip6pt
+No solution.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmplot0_3.pdf}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Linear kernel}
+\vskip6pt
+No solution.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmclass0_3.pdf}
+\end{frame}
+
+\section{Non-linear kernel}
+
+\begin{frame}{Non-linear kernels}
+\begin{itemize}
+ 	\item[$\bullet$] Polynomial kernels,
+ 		\begin{equation*}
+			\mathcal{K}(\vec{x},\vec{y}) = \left(\vec{x}^T, \vec{y} + 1\right)^p.
+		\end{equation*}
+	\item[$\bullet$] Radial Basis Function (RBF) kernels,\\
+		\begin{equation*}
+			\mathcal{K}(\vec{x},\vec{y}) = e^{-\frac{||\vec{x} - \vec{y}||^2}{2\sigma^2}}.
+		\end{equation*}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Non-linear kernels}
+\vskip6pt
+Polynomial kernels, $p=2$.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmplot1.pdf}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Non-linear kernels}
+\vskip6pt
+Polynomial kernels, $p=2$.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmclass1_p2.pdf}
+\end{frame}
+
+\begin{frame}{Non-linear kernels}
+\vskip6pt
+Polynomial kernels, $p=3$.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmplot1_moon.pdf}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Non-linear kernels}
+\vskip6pt
+Polynomial kernels, $p=3$.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmclass1_moon_poly3.pdf}
+\end{frame}
+
+\begin{frame}{Non-linear kernels}
+\vskip6pt
+Radial Basis Function (RBF) kernels, $\sigma=1$,\\
+\centering
+\includegraphics[width=.95\linewidth]{svmplot1_circle.pdf}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Non-linear kernels}
+\vskip6pt
+Radial Basis Function (RBF) kernels, $\sigma=1$.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmclass1_circle_rbf1.pdf}
+\end{frame}
+
+\begin{frame}{Bias-variance trade-off and the parameter of the kernels}
+\begin{itemize}
+	\item Polynomial kernels: 
+	\begin{itemize}
+		\item A large $p$ corresponds to more complex decision boundary which implies high variance and low bias and vise versa.\\
+	\end{itemize}
+	
+	\item RBF kernels: 
+	\begin{itemize}
+		\item A large $\sigma$ corresponds to a small value of kernel function that means the support vector does not have much influence on the classification. It allows more complex decision boundary but it faces on overfitting. Therefore, a large $\sigma$ leads to high bias and low variance model.\\
+		\item A small $\sigma$ implies that the SV has larger influence on the classifying. The decision boundary thus becomes simpler that leads to high bias, low variance model.
+	\end{itemize}
+		
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bias-variance trade-off and the parameter of the kernels}
+\vskip6pt
+Polynomial kernels\\
+\begin{columns}
+\begin{column}{.5\textwidth}
+\centering
+\includegraphics[width=.95\linewidth]{svmclass_flame_poly2.pdf}\\
+$p = 2$ 
+\end{column}
+\begin{column}{.5\textwidth}
+\centering
+\includegraphics[width=.95\linewidth]{svmclass_flame_poly20.pdf}\\
+$p = 20$ 
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Bias-variance trade-off and the parameter of the kernels}
+\vskip6pt
+RBF kernels.\\
+\begin{columns}
+\begin{column}{.5\textwidth}
+\centering
+\includegraphics[width=.95\linewidth]{svmclass_flame_rbf1.pdf}\\
+$\sigma^2 = 1$ 
+\end{column}
+\begin{column}{.5\textwidth}
+\centering
+\includegraphics[width=.95\linewidth]{svmclass_flame_rbf01.pdf}\\
+$\sigma^2 = 0.1$
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\section{Slack parameter}
+
+\begin{frame}{Slack parameter $C$}
+\begin{itemize}
+	\item[Q4:] Explore the role of the slack parameter $C$. What happens for very large/small values?
+	\item[A:] The C parameter tells the SVM optimization how much you want to avoid misclassifying each training example. For large values of C, the optimization will choose a smaller-margin hyperplane if that hyperplane does a better job of getting all the training points classified correctly. Conversely, a very small value of C will cause the optimizer to look for a larger-margin separating hyperplane, even if that hyperplane misclassifies more points. For very tiny values of C, you should get misclassified examples, often even if your training data is linearly separable.\\
+	A large $C$ leads to low bias and high variance model.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Slack parameter $C$}
+\vskip6pt
+Linear classifier\\
+\centering
+\includegraphics[width=.95\linewidth]{svmplotC.pdf}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Slack parameter $C$}
+\vskip6pt
+Linear classifier without $C$.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmclassC_linear.pdf}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Slack parameter $C$}
+\vskip6pt
+Linear classifier with $C = 0.1$.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmclassC_01linear.pdf}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Slack parameter $C$}
+\vskip6pt
+Linear classifier with $C = 0.002$.\\
+\centering
+\includegraphics[width=.95\linewidth]{svmclassC_0002linear.pdf}
+\end{frame}
+
+
+\begin{frame}{More slack or more complex model}
+\vskip6pt
+Dataset has much noise\\
+\begin{columns}
+\begin{column}{.5\textwidth}
+\centering
+\includegraphics[width=.95\linewidth]{svmplot_class.pdf}
+\end{column}
+\begin{column}{.5\textwidth}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]{More slack or more complex model}
+\vskip6pt
+Dataset has much noise $\rightarrow$ choose a good slack.\\
+\begin{columns}
+\begin{column}{.5\textwidth}
+\centering
+\includegraphics[width=.95\linewidth]{svmclass_class_rbf07.pdf}\\
+RBF kernel with $\sigma = 0.7$.
+\end{column}
+\begin{column}{.5\textwidth}
+\centering
+\includegraphics[width=.95\linewidth]{svmclass_class_linearC10.pdf}\\
+Linear kernel with $C = 10$
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{More slack or more complex model}
+\vskip6pt
+Dataset has no noise with complex shape\\
+\begin{columns}
+\begin{column}{.5\textwidth}
+\centering
+\includegraphics[width=.95\linewidth]{svmplot_spiral.pdf}
+\end{column}
+\begin{column}{.5\textwidth}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]{More slack or more complex model}
+\vskip6pt
+Dataset has no noise with complex shape $\rightarrow$ choose a complex model.\\
+\begin{columns}
+\begin{column}{.5\textwidth}
+\centering
+\includegraphics[width=.95\linewidth]{svmclass_spiral_poly3_C10.pdf}\\
+Polynomial kernel with $p = 3, C = 10$.
+\end{column}
+\begin{column}{.5\textwidth}
+\centering
+\includegraphics[width=.95\linewidth]{svmclass_spiral_poly10.pdf}\\
+Polynomial kernel with $p = 10$.
+\end{column}
+\end{columns}
+\end{frame}
+
 
 \end{document}
