@@ -6,13 +6,14 @@
 
 * Use `genBlobs()` and `plotGaussians` to verify the code.
  
-![Figure](figures/gauss.png)
+![gauss](figures/gauss.png)
  
  ## Assignment 2
 
 * Write function `computePrior(labels)` to estimate the class prior.
 
 * Write function `classifyBayes(X,prior,mu,sigma)` to find the discriminant function values for all classes and classifies each point to belong to the max discriminant value.
+![classGauss](figures/classGauss.png)
 
 
 ## Assignment 3
@@ -45,8 +46,9 @@ Extend function `mlParams(X,labels,W)` to which handles weight $W$.
 1. Compute the classification accuracy of Bayesian classifier and its boosted version on some datasets using `testClassifier`, 
     * for `iris` we get `Final mean classification accuracy  89 with standard deviation 4.16` and `Final mean classification accuracy  94.7 with standard deviation 2.82`; 
     * for `vowels` we get `Final mean classification accuracy  64.7 with standard deviation 4.03` and `Final mean classification accuracy  80.2 with standard deviation 3.52`.
+    
 In both cases, NB gets low bias and boosting improves this. 
-    * However, for `wine` dataset boosting does not improve the accuracy because naive Bayes performs well classification (the accuracy is 97.6%) and the size of input is to large enough (n = 178).
+    * However, for `wine` dataset boosting does not improve the accuracy because naive Bayes performs well classification (the accuracy is 97.6%) and the size of input is not large enough (n = 178).
 
 2. Plot the decision boundary of the boosted classifier on `iris`. Compare to the plot of the basic, the classification is more exactly and looks like more complex (not so smoother as the basic one).
 
@@ -61,6 +63,7 @@ Test the decision tree classifier on the `vowels` and `iris` datasets. The put i
     * for `iris` we get `Final mean classification accuracy  92.4 with standard deviation 3.71` and `Final mean classification accuracy  94.6 with standard deviation 3.65`; 
     * for `vowels` we get `Final mean classification accuracy  64.1 with standard deviation 4` and `Final mean classification accuracy  87 with standard deviation 2.97`;
     * for `wine` we get `Final mean classification accuracy  91.1 with standard deviation 4.22` and `Final mean classification accuracy  92 with standard deviation 3.78`.
+    
 All of them, boosting improves the accuracy. The lower bias model is the more efficient the boosting is. 
 
 2. Plot the decision boundary of the boosted classifier on `iris`. Compare to the plot of the basic, the classification is more exactly and looks like more complex (less smooth).
@@ -68,7 +71,7 @@ All of them, boosting improves the accuracy. The lower bias model is the more ef
 
 ## Assignment 7
 
-Pick a classifier, naive Bayes or decision tree or the boosted versions of these:
+Pick a classifier, naive Bayes or decision tree or the boosted versions of these for the following criteria:
 
 * Outliers: Decision tree without boosting. Boosting weights outliers then is sensitive to them.
 * Irrelevant inputs (part of the feature space is irrelevant): Naive Bayes. Irrelevent inputs make independence assumption to be met.
