@@ -2,7 +2,7 @@
 
 ## Assignment 1
 
-* Write function `mlParams(X,labels)` to estimate $`\mu_k`$ and $`\Sigma_k`$ for the different class k in the dataset.
+* Write function `mlParams(X,labels)` to estimate $'\mu_k'$ and $'\Sigma_k'$ for the different class k in the dataset.
 
 * Use `genBlobs()` and `plotGaussians` to verify the code.
  
@@ -29,7 +29,7 @@ Run `testClassifier` for the datasets `iris` and `vowels`. Plot the decision bou
 
 2. How does the decision boundary look for the Iris dataset? How could improve the classification results for this scenario by changing classisier or, alternatively, manipulating the data?
 
-    * The decision boundary for the Iris dataset looks simple and not good (there are some misclassifications) since the independence assumption does not hold. A rotation for the dataset can improve the classifying. This transformation makes naive assumption to be met. A rotation of $`45^o`$ improve the accuracy from 89% to 96%.
+    * The decision boundary for the Iris dataset looks simple and not good (there are some misclassifications) since the independence assumption does not hold. A rotation for the dataset can improve the classifying. This transformation makes naive assumption to be met. A rotation of $45^o$ improve the accuracy from 89% to 96%.
     
 ## Assignment 4
 
