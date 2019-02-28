@@ -2,7 +2,7 @@
 
 ## Assignment 1
 
-* Write function `mlParams(X,labels)` to estimate $'\mu_k'$ and $'\Sigma_k'$ for the different class k in the dataset.
+* Write function `mlParams(X,labels)` to estimate $\mu_k$ and $\Sigma_k$ for the different class k in the dataset.
 
 * Use `genBlobs()` and `plotGaussians` to verify the code.
  
@@ -38,7 +38,7 @@ Extend function `mlParams(X,labels,W)` to which handles weight $W$.
 
 ## Assignment 5
 
-* Modify `computePrior(labels,W)` which taking weight W into account. The prior of a class is total weights of points $`x_i`$ in this class.
+* Modify `computePrior(labels,W)` which taking weight W into account. The prior of a class is total weights of points $x_i$ in this class.
 
 * Design function `trainBoost(base_classifier, X, labels, T)` which implement the Adaboost algorithm.
 
@@ -52,7 +52,7 @@ Extend function `mlParams(X,labels,W)` to which handles weight $W$.
     
     * for `vowels` we get `Final mean classification accuracy  64.7 with standard deviation 4.03` and `Final mean classification accuracy  80.2 with standard deviation 3.52`.
     
-In both cases, NB gets low bias and boosting improves this. 
+    In both cases, NB gets low bias and boosting improves this. 
 
     * However, for `wine` dataset boosting does not improve the accuracy because naive Bayes performs well classification (the accuracy is 97.6%) and the size of input is not large enough (n = 178).
 
