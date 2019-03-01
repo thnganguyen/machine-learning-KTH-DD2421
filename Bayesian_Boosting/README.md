@@ -65,7 +65,7 @@ Extend function `mlParams(X,labels,W)` to which handles weight $W$.
 
 Test the decision tree classifier on the `vowels` and `iris` datasets. The put it as an argument to the `BoostClassifier` object. 
 
-1. Compute the classification accuracy of Bayesian classifier and its boosted version on some datasets using `testClassifier`, 
+1. Compute the classification accuracy of decision tree classifier and its boosted version on some datasets using `testClassifier`, 
 
     * for `iris` we get `Final mean classification accuracy  92.4 with standard deviation 3.71` and `Final mean classification accuracy  94.6 with standard deviation 3.65`; 
     
@@ -82,11 +82,11 @@ All of them, boosting improves the accuracy. The lower bias model is the more ef
 
 Pick a classifier, naive Bayes or decision tree or the boosted versions of these for the following criteria:
 
-* Outliers: Decision tree without boosting. Boosting weights outliers then is sensitive to them.
+* Outliers: Decision tree without boosting. Boosting weights outliers then is sensitive to them. NB bases on the classical estimates of the location and spread parameters, it is thus very much sensitive to outliers.
 
-* Irrelevant inputs (part of the feature space is irrelevant): Naive Bayes. Irrelevent inputs make independence assumption to be met.
+* Irrelevant inputs (part of the feature space is irrelevant): Naive Bayes. Irrelevent inputs make independence assumption to be met. DT will work well if the inputs has less highly relevant features.
 
-* Predictive power: Boosted Decision Tree or Decision Tree. NB use the probability that leads to inaccurate in predicting. 
+* Predictive power: Boosted Decision Tree or Boosted NB. If we consider a very less noise input and we need exact output NB can not give this. NB use the probability to classify and the decision boundary is soft one that leads to inaccurate in predicting. 
 
 * Mixed types of data (binary, categorical or continuous features, ...): Decision Tree. NB is sensitive with mixed types of data. It works well with a continous type of data.
 
